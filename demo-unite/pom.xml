@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>com.indatasights.demo</groupId>
+      <artifactId>demo</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <relativePath>../</relativePath>
+   </parent>
+
+   <artifactId>demo-unite</artifactId>
+   <packaging>jar</packaging>
+
+   <name>demo-unite</name>
+   <url>http://www.indatasights.com/unite</url>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <main.class>com.indatasights.demo.unite.Unite</main.class>
+   </properties>
+   <dependencies>
+
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <!--
+      <dependency>
+         <groupId>org.xerial</groupId>
+         <artifactId>sqlite-jdbc</artifactId>
+         <scope>provided</scope>
+         <optional>true</optional>
+      </dependency>
+
+      <dependency>
+         <groupId>com.indatasights.demo</groupId>
+         <artifactId>demo-avro</artifactId>
+      </dependency>
+
+
+      <dependency>
+         <groupId>com.googlecode.libphonenumber</groupId>
+         <artifactId>geocoder</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>javax.mail</groupId>
+         <artifactId>javax.mail-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      -->
+
+      <dependency>
+         <groupId>commons-cli</groupId>
+         <artifactId>commons-cli</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>net.sourceforge.jgeocoder</groupId>
+         <artifactId>jgeocoder</artifactId>
+         <classifier>jar-with-dependencies</classifier>
+      </dependency>
+
+
+   </dependencies>
+   <description>indatasights unite utilities</description>
+</project>

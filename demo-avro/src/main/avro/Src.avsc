@@ -1,0 +1,19 @@
+[ {
+  "namespace":"com.indatasights.demo.avro",
+    "name":"Src",
+    "type":"record",
+    "fields":[
+      {"name":"id","type":"string", "doc":"", "default":""},
+      {"name":"s","type":"string", "doc":"vendor", "default":""},
+      {"name":"sId","type":"string", "doc":"primary id provided by vendor", "default":""},
+      {"name":"sSId","type":"string", "doc":"secondarySourceId, for records that have multiple built in join keys", "default":""}
+    ]
+},
+{
+  "namespace" : "com.indatasights.demo.avro",
+  "type" : "record",
+  "name" : "Srcs",
+  "fields" : [ 
+    { "name" : "Srcs", "default" : [], "type" : { "type" : "array", "items" : "Src" } }
+  ]
+} ]

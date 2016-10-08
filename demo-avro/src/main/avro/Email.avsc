@@ -1,0 +1,25 @@
+[{
+  "name":"Email",
+  "namespace":"com.indatasights.demo.avro",
+  "type":"record",
+  "fields":[
+    {"name":"id",  "type":"string", "default":""},
+    {"name":"u",   "type":"string", "default":""},
+    {"name":"d",   "type":"string", "default":""},
+    {"name":"rU",  "type":"string", "default":""},
+    {"name":"rD",  "type":"string", "default":""},
+    {"name":"md5", "type":"string", "default":""},
+    {"name":"ts",  "type":"string", "default":"0", "doc":"timestamp"},
+    {"name":"fts", "type":"string", "default":"0", "doc":"first timestamp"},
+    {"name":"lts", "type":"string", "default":"0", "doc":"last timestamp"}
+  ]
+},
+{
+  "namespace" : "com.indatasights.demo.avro",
+  "type" : "record",
+  "name" : "Emails",
+  "fields" :	[ 
+	  { "name" : "Emails", "default" : [], "type" : { "type" : "array", "items" : "Email"}}
+	]
+}
+]

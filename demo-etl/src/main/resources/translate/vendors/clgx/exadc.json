@@ -1,0 +1,22 @@
+{ 
+  "comment"    : "not the actual adc format, subset created by taylan",
+  "contactInfo": {"name":"john doe","email":"jdoe@example.com"},
+  "delim"      : "\t",
+  "locations"  : {},
+  "fields"     : [
+  
+  
+  
+{"name":"index", "type":"string", "default":"", "description":""},
+{"name":"last", "type":"string", "default":"", "description":""},
+{"name":"first", "type":"string", "default":"", "description":""},
+{"name":"fulladdr", "type":"string", "default":"", "description":""},
+{"name":"city", "type":"string", "default":"", "description":""},
+{"name":"state", "type":"string", "default":"", "description":""},
+{"name":"zip", "type":"string", "default":"", "description":""},
+{"name":"zip4", "type":"string", "default":"", "description":""},
+{"name":"email", "type":"string", "default":"", "description":""},
+{"name":"phone", "type":"string", "default":"", "description":""}
+
+  ]
+}

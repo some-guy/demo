@@ -1,0 +1,83 @@
+---
+- name: set vm.swappiness = 0
+  sysctl: name="vm.swappiness" value=0 sysctl_set=yes
+
+- name: disable ipv6
+  sysctl: name={{item}} value=1 sysctl_set=yes
+  with_items:
+    - net.ipv6.conf.all.disable_ipv6
+    - net.ipv6.conf.default.disable_ipv6
+    - net.ipv6.conf.lo.disable_ipv6
+
+- name: Umount mnt
+  mount: name=/mnt src=/dev/xvdb fstype=ext3 state=unmounted
+
+- name: Configure mnt ephermeral storage
+  mount: name=/mnt  src=/dev/xvdb fstype=ext3 opts=defaults,noatime state=present
+
+- name: Configure mnt1 ephermeral storage
+  mount: name=/mnt1 src=/dev/xvdc fstype=ext3 opts=defaults,noatime state=present
+
+- name: Configure mnt2 ephermeral storage
+  mount: name=/mnt2 src=/dev/xvdd fstype=ext3 opts=defaults,noatime state=present
+
+- name: Configure mnt3 ephermeral storage
+  mount: name=/mnt3 src=/dev/xvde fstype=ext3 opts=defaults,noatime state=present
+
+- name: Mount mnt ephermeral storage
+  mount: name=/mnt  src=/dev/xvdb fstype=ext3 opts=defaults,noatime state=mounted
+
+- name: Mount mnt1 ephermeral storage
+  mount: name=/mnt1 src=/dev/xvdc fstype=ext3 opts=defaults,noatime state=mounted
+
+- name: Mount mnt2 ephermeral storage
+  mount: name=/mnt2 src=/dev/xvdd fstype=ext3 opts=defaults,noatime state=mounted
+
+- name: Mount mnt3 ephermeral storage
+  mount: name=/mnt3 src=/dev/xvde fstype=ext3 opts=defaults,noatime state=mounted
+
+- name: Fix mnt permissions
+  command: chmod 777 {{item}}
+  with_items:
+     - /mnt
+     - /mnt1
+     - /mnt2
+     - /mnt3
+
+- name: Create mnt tmp dirs
+  command: mkdir {{item}}
+  with_items:
+     - /mnt/tmp
+     - /mnt1/tmp
+     - /mnt2/tmp
+     - /mnt3/tmp
+
+- name: Fix /mnt/tmps permissions
+  command: chmod 1777 {{item}}
+  with_items:
+     - /mnt/tmp
+     - /mnt1/tmp
+     - /mnt2/tmp
+     - /mnt3/tmp
+
+- name: Recover diskspace
+  command: tune2fs -m0 {{item}}
+  with_items:
+     - /dev/xvdb
+     - /dev/xvdc
+     - /dev/xvdd
+     - /dev/xvde
+
+- name: Install add-apt-repostory
+  apt: name=software-properties-common state=latest
+
+- name: Install NTP
+  apt: name={{item}} state=latest
+  with_items:
+    - ntp
+
+- name: Change TZ to US/Pacific in /etc/timezone
+  shell: echo US/Pacific | tee /etc/timezone
+
+- name: Change system TZ to US/Pacific
+  shell: dpkg-reconfigure --frontend noninteractive tzdata

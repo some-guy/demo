@@ -1,0 +1,17 @@
+---
+- name: apt-get update
+  apt: update_cache=yes
+
+- name: Install add-apt-repostory
+  apt: name=software-properties-common state=latest
+
+- name: Install NTP
+  apt: name={{item}} state=latest
+  with_items:
+    - ntp
+
+- name: Change TZ to US/Pacific in /etc/timezone
+  shell: echo US/Pacific | tee /etc/timezone
+
+- name: Change system TZ to US/Pacific
+  shell: dpkg-reconfigure --frontend noninteractive tzdata

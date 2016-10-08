@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.indatasights.demo</groupId>
+   <artifactId>demo</artifactId>
+   <packaging>pom</packaging>
+   <version>0.0.1-SNAPSHOT</version>
+   <name>demo</name>
+   <url>https://indatasights.com</url>
+   <inceptionYear>2015</inceptionYear>
+
+   <distributionManagement>
+      <repository>
+         <id>apache.releases.https</id>
+         <name>Apache Release Distribution Repository</name>
+         <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
+      </repository>
+      <snapshotRepository>
+         <id>apache.snapshots.https</id>
+         <name>Apache Development Snapshot Repository</name>
+         <url>https://repository.apache.org/content/repositories/snapshots</url>
+      </snapshotRepository>
+   </distributionManagement>
+
+   <repositories>
+
+      <repository>
+         <id>apache.snapshots</id>
+         <url>http://repository.apache.org/snapshots/</url>
+         <name>Apache Snapshot Repo</name>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+         <releases>
+            <enabled>false</enabled>
+         </releases>
+      </repository>
+      <repository>
+         <id>cloudera</id>
+         <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+      </repository>
+   </repositories>
+
+   <pluginRepositories>
+      <pluginRepository>
+         <id>cloudera-plugin</id>
+         <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+      </pluginRepository>
+      <pluginRepository>
+         <id>central</id>
+         <url>https://repo1.maven.org/maven2</url>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </pluginRepository>
+   </pluginRepositories>
+
+   <build>
+      <defaultGoal>compile</defaultGoal>
+      <directory>target</directory>
+      <outputDirectory>${basedir}/target/classes</outputDirectory>
+      <finalName>${project.artifactId}-${project.version}</finalName>
+      <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+      <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+      <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+
+      <pluginManagement>
+
+         <plugins>
+
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-assembly-plugin</artifactId>
+               <version>${maven-assembly-plugin.version}</version>
+               <executions>
+                  <execution>
+                     <id>assembly</id>
+                     <phase>package</phase>
+                     <goals>
+                        <goal>single</goal>
+                     </goals>
+                  </execution>
+               </executions>
+               <configuration>
+                  <archive>
+                     <manifest>
+                        <mainClass>${main.class}</mainClass>
+                     </manifest>
+                  </archive>
+                  <tarLongFileMode>gnu</tarLongFileMode>
+                  <finalName>${assembly.finalName}</finalName>
+                  <descriptorRefs>
+                     <descriptorRef>jar-with-dependencies</descriptorRef>
+                  </descriptorRefs>
+               </configuration>
+            </plugin>
+
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-resources-plugin</artifactId>
+               <version>${maven-resources-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-deploy-plugin</artifactId>
+               <version>${maven-deploy-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-clean-plugin</artifactId>
+               <version>${maven-clean-plugin.version}</version>
+               <configuration>
+                  <filesets>
+                     <fileset>
+                        <directory>${basedir}/lib</directory>
+                        <followSymlinks>false</followSymlinks>
+                        <useDefaultExcludes>true</useDefaultExcludes>
+                        <includes>
+                           <include>*.jar</include>
+                           <include>*.pom</include>
+                        </includes>
+                     </fileset>
+                  </filesets>
+               </configuration>
+            </plugin>
+
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-release-plugin</artifactId>
+               <version>${maven-release-plugin.version}</version>
+               <configuration>
+                  <mavenExecutorId>forked-path</mavenExecutorId>
+                  <tagBase>https://svn.apache.org/repos/asf/gora/tags</tagBase>
+                  <useReleaseProfile>false</useReleaseProfile>
+                  <arguments>-Papache-release,release</arguments>
+                  <autoVersionSubmodules>true</autoVersionSubmodules>
+               </configuration>
+            </plugin>
+
+            <plugin>
+               <groupId>net.alchim31.maven</groupId>
+               <artifactId>scala-maven-plugin</artifactId>
+               <version>${scala.maven.version}</version>
+            </plugin>
+
+            <plugin>
+               <groupId>org.apache.avro</groupId>
+               <artifactId>avro-maven-plugin</artifactId>
+               <version>${avro-maven-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>build-helper-maven-plugin</artifactId>
+               <version>${build-helper-maven-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+               <groupId>org.eclipse.m2e</groupId>
+               <artifactId>lifecycle-mapping</artifactId>
+               <version>1.0.0</version>
+               <configuration>
+                  <lifecycleMappingMetadata>
+                     <pluginExecutions>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.apache.avro</groupId>
+                              <artifactId>
+                                 avro-maven-plugin
+                              </artifactId>
+                              <versionRange>
+                                 [1.7.0,)
+                              </versionRange>
+                              <goals>
+                                 <goal>schema</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore></ignore>
+                           </action>
+                        </pluginExecution>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>net.alchim31.maven</groupId>
+                              <artifactId>
+                                 scala-maven-plugin
+                              </artifactId>
+                              <versionRange>[3.2.2,)</versionRange>
+                              <goals>
+                                 <goal>add-source</goal>
+                                 <goal>compile</goal>
+                                 <goal>testCompile</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore></ignore>
+                           </action>
+                        </pluginExecution>
+                     </pluginExecutions>
+                  </lifecycleMappingMetadata>
+               </configuration>
+            </plugin>
+         </plugins>
+
+      </pluginManagement>
+
+      <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven-compiler-plugin.version}</version>
+            <inherited>true</inherited>
+            <configuration>
+               <compilerArguments>
+                  <Xlint />
+               </compilerArguments>
+               <verbose>false</verbose>
+               <debug>false</debug>
+               <showWarnings>false</showWarnings>
+               <source>${javac.src.version}</source>
+               <target>${javac.target.version}</target>
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>${maven-jar-plugin.version}</version>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <inherited>true</inherited>
+            <configuration>
+               <systemPropertyVariables>
+                  <hadoop.log.dir>${project.basedir}/target/test-logs/</hadoop.log.dir>
+                  <test.build.data>${project.basedir}/target/test-data/</test.build.data>
+               </systemPropertyVariables>
+               <argLine>-Xmx512m</argLine>
+               <reuseForks>always</reuseForks>
+               <testFailureIgnore>false</testFailureIgnore>
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>${maven-dependency-plugin.version}</version>
+            <inherited>true</inherited>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>copy-dependencies</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>lib</outputDirectory>
+                     <silent>true</silent>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
+      </plugins>
+   </build>
+
+   <modules>
+      <module>demo-avro</module>
+      <module>demo-unite</module>
+      <module>demo-etl</module>
+      <module>demo-crawl</module>
+      <module>demo-spark</module>
+   </modules>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+      <!-- cdh version -->
+      <cdh.version>cdh5.6.0</cdh.version>
+
+      <!-- cdh hadoop version -->
+      <h.version>2.6.0</h.version>
+
+      <!-- cdh hbase version -->
+      <hb.version>1.0.0</hb.version>
+
+      <!-- cdh avro version -->
+      <a.version>1.7.6</a.version>
+
+      <!-- cdh spark version -->
+      <sp.version>1.5.0</sp.version>
+
+      <avro.version>${a.version}-${cdh.version}</avro.version>
+      <avro-mapred.version>${avro.version}</avro-mapred.version>
+      <avro-maven-plugin.version>${avro.version}</avro-maven-plugin.version>
+
+      <hadoop.version>${h.version}-${cdh.version}</hadoop.version>
+      <hadoop.client.version>${hadoop.version}</hadoop.client.version>
+      <hadoop.common.version>${hadoop.version}</hadoop.common.version>
+      <spark.version>${sp.version}-${cdh.version}</spark.version>
+
+      <hadoop.test.version>${hadoop.version}</hadoop.test.version>
+      <hbase.version>${hb.version}-${cdh.version}</hbase.version>
+
+      <scala.maven.version>3.2.2</scala.maven.version>
+      <scala.version>2.10.4</scala.version>
+
+      <elasticsearch.version>1.7.2</elasticsearch.version>
+      <elasticsearch-cloud-aws.version>2.7.1</elasticsearch-cloud-aws.version>
+      <elasticsearch-hadoop.version>2.1.1</elasticsearch-hadoop.version>
+
+      <jgeo.version>0.5</jgeo.version>
+      <guava.version>83.1</guava.version>
+      <sqlite-jdbc.version>3.8.11</sqlite-jdbc.version>
+      <logging.version>1.0.4</logging.version>
+      <dbutils.version>1.1</dbutils.version>
+      <commons-csv.version>1.2</commons-csv.version>
+      <commons-io.version>2.4</commons-io.version>
+      <commons-lang.version>2.6</commons-lang.version>
+      <commons-logging.version>1.1.3</commons-logging.version>
+      <commons-cli.version>1.2</commons-cli.version>
+      <collections.version>3.2</collections.version>
+      <berkeleydb.version>3.2.44</berkeleydb.version>
+      <h2.version>1.3.168</h2.version>
+      <javax-mail.version>1.5.4</javax-mail.version>
+      <hsqldb.version>2.2.8</hsqldb.version>
+      <jsoup.version>1.8.3</jsoup.version>
+      <libphonenumber.version>7.0.11</libphonenumber.version>
+      <libphonenumber-geocoder.version>2.27</libphonenumber-geocoder.version>
+      <json-simple.version>1.1.1</json-simple.version>
+      <selenium-server.version>2.47.1</selenium-server.version>
+      <mysql-connector-java.version>5.1.36</mysql-connector-java.version>
+      <com.google.code.gson.gson.version>2.3.1</com.google.code.gson.gson.version>
+
+      <junit.version>4.12</junit.version>
+      <org.apache.mrunit.mrunit.version>1.1.0</org.apache.mrunit.mrunit.version>
+
+      <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+      <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+      <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+      <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+      <build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
+      <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+      <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+      <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+      <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
+      <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+      <apache-rat-plugin.version>0.11</apache-rat-plugin.version>
+      <maven-assembly-plugin.version>2.5.5</maven-assembly-plugin.version>
+      <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+      <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
+      <maven.shade.plugin.version>2.4.1</maven.shade.plugin.version>
+
+      <implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
+      <javac.src.version>1.8</javac.src.version>
+      <javac.target.version>1.8</javac.target.version>
+      <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
+      <skipTests>false</skipTests>
+      <assembly.finalName>${project.build.finalName}</assembly.finalName>
+   </properties>
+
+   <dependencyManagement>
+      <dependencies>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-avro</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-avro</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-etl</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-etl</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-unite</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-unite</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-crawl</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-crawl</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-spark</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.indatasights.demo</groupId>
+            <artifactId>demo-spark</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.10</artifactId>
+            <version>${spark.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_2.10</artifactId>
+            <version>${spark.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-graphx_2.10</artifactId>
+            <version>${spark.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+            <version>${hadoop.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>${hadoop.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-mapred</artifactId>
+            <version>${avro.version}</version>
+            <classifier>hadoop2</classifier>         
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-yarn-client</artifactId>
+            <version>${hadoop.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-server</artifactId>
+            <version>${hbase.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>net.sourceforge.jgeocoder</groupId>
+            <artifactId>jgeocoder</artifactId>
+            <classifier>jar-with-dependencies</classifier>
+            <version>${jgeo.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite-jdbc.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>${commons-cli.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${commons-csv.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${elasticsearch.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-cloud-aws</artifactId>
+            <version>${elasticsearch-cloud-aws.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.googlecode.libphonenumber</groupId>
+            <artifactId>libphonenumber</artifactId>
+            <version>${libphonenumber.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.googlecode.libphonenumber</groupId>
+            <artifactId>geocoder</artifactId>
+            <version>${libphonenumber-geocoder.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>${javax-mail.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json-simple.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>${selenium-server.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-hadoop-mr</artifactId>
+            <version>${elasticsearch-hadoop.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-test</artifactId>
+            <version>${hadoop.test.version}</version>
+            <scope>test</scope>
+         </dependency>
+
+         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.mrunit</groupId>
+            <artifactId>mrunit</artifactId>
+            <version>${org.apache.mrunit.mrunit.version}</version>
+            <classifier>hadoop2</classifier>
+            <scope>test</scope>
+         </dependency>
+
+         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${com.google.code.gson.gson.version}</version>
+         </dependency>
+
+      </dependencies>
+   </dependencyManagement>
+
+</project>

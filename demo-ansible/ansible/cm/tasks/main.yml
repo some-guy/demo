@@ -1,0 +1,32 @@
+---
+- name: Install add-apt-repostory
+  apt: name=software-properties-common state=latest
+
+- name: Add cloudera repository
+  apt_repository: repo='deb [arch=amd64] http://archive.cloudera.com/cm5/ubuntu/trusty/amd64/cm trusty-cm5 contrib' state=present
+
+- name: Add cloudera src repository
+  apt_repository: repo='deb-src http://archive.cloudera.com/cm5/ubuntu/trusty/amd64/cm trusty-cm5 contrib' state=present
+
+- name: Add cloudera repo key
+  apt_key: url=http://archive.cloudera.com/cm5/ubuntu/trusty/amd64/cm/archive.key state=present
+
+- name: update cache
+  apt: update_cache=yes
+
+- name: install CM DB
+  command: apt-get install -y --force-yes  {{item}}
+  with_items:
+    - cloudera-manager-server-db-2
+
+- name: Start Cloudera Manager DB
+  service: name=cloudera-scm-server-db state=started
+
+- name: install CM
+  command: apt-get install -y --force-yes  {{item}}
+  with_items:
+    - cloudera-manager-daemons
+    - cloudera-manager-server
+
+- name: Start Cloudera Manager
+  service: name=cloudera-scm-server state=started

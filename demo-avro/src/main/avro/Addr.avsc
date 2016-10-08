@@ -1,0 +1,62 @@
+[{
+    "name": "GPEnum",
+    "namespace": "com.indatasights.demo.avro",
+    "type": "enum",
+    "doc":"GeoPrecision, taken from net.sourceforge.jgeocoder.GeocodeAcuracy",
+    "symbols": [ "STREET", "ZIP", "CITY_STATE", "UNKNOWN" ]
+ },
+ {
+   "name":"Addr", 
+   "namespace":"com.indatasights.demo.avro", 
+   "type":"record",
+   "fields":[
+      
+      {"name":"id","type":"string", "doc":"", "default":""},
+      {"name":"ts","type":"string", "doc":"", "default":""},
+      {"name":"fts","type":"string", "doc":"", "default":""},
+      {"name":"lts","type":"string", "doc":"", "default":""},
+      //unparsed
+      {"name":"rFull","type":"string", "doc":"Full raw address", "default":""},
+      {"name":"rAddr1","type":"string", "doc":"raw", "default":""},
+      {"name":"rAddr2","type":"string", "doc":"raw", "default":""},
+      {"name":"rCity","type":"string", "doc":"raw", "default":""},
+      {"name":"rState","type":"string", "doc":"raw", "default":""},
+      {"name":"rPCode","type":"string", "doc":"raw", "default":""},
+      {"name":"rPCodePlus","type":"string", "doc":"raw", "default":""},
+      {"name":"rCounty","type":"string", "doc":"raw", "default":""},
+      {"name":"rCountry","type":"string", "doc":"raw", "default":""},
+      {"name":"rMetro","type":"string", "doc":"raw", "default":""},
+      {"name":"rBuildingName","type":"string", "doc":"raw", "default":""},
+      //parsed
+      {"name":"houseNumber","type":"string", "doc":"parsed", "default":""},
+      {"name":"preDir","type":"string", "doc":"parsed", "default":""},
+      {"name":"street","type":"string", "doc":"parsed", "default":""},
+      {"name":"streetType","type":"string", "doc":"parsed", "default":""},
+      {"name":"postDir","type":"string", "doc":"parsed", "default":""},
+      {"name":"line2","type":"string", "doc":"parsed", "default":""},
+      {"name":"city","type":"string", "doc":"parsed", "default":""},
+      {"name":"state","type":"string", "doc":"parsed", "default":""},
+      {"name":"pCode","type":"string", "doc":"parsed", "default":""},
+      {"name":"pCode4","type":"string", "doc":"parsed", "default":""},
+      {"name":"pCode12","type":"string", "doc":"Consists of pCode+Zip4+dp3", "default":""},
+      {"name":"dPV","type":"int", "doc":"delivery Point Verification", "default":0},
+      {"name":"county","type":"string", "doc":"parsed", "default":""},
+      {"name":"country","type":"string", "doc":"parsed", "default":""},
+      {"name":"geo", "type":"string", "default":"","doc":"lat,lon" },
+      {"name":"geoP","type":"GPEnum", "doc":"accuracy", "default":"UNKNOWN"},
+      {"name":"gma", "type":"string", "default":"","doc":"greater metro area" },
+      {"name":"buildingName", "type":"string", "default":"","doc":"" }
+
+   ]
+},
+{
+    "namespace" : "com.indatasights.demo.avro",
+    "type" : "record",
+    "name" : "Addrs",
+    "fields" : [ {
+	"name" : "Addrs",
+	"default" : [],
+	"type" : { "type" : "array", "items" : "Addr" }
+    } ]
+}
+]

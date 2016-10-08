@@ -1,0 +1,17 @@
+[{
+   "name":"Code",
+   "namespace":"com.indatasights.demo.avro",
+   "type":"record",
+   "fields":[
+      { "name":"id",           "type":"string", "default":""}
+   ]
+},
+{
+    "namespace" : "com.indatasights.demo.avro",
+    "type" : "record",
+    "name" : "Codes",
+    "fields" :	[ 
+	  { "name" : "Codes", "default" : [], "type" : { "type" : "array", "items" : "Code"}}
+	]
+}
+]

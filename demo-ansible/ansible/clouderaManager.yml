@@ -1,0 +1,4 @@
+- hosts: cm
+  sudo: yes
+  roles:
+   - cm

@@ -1,0 +1,13 @@
+{   
+   "type": "record",
+   "name": "Person",
+   "namespace": "com.indatasights.demo.avro",
+   "fields" : [
+      {"name": "id"             , "default":"", "type":"string" },
+      {"name": "Names"        	, "default":{}, "type":"Names" },
+      {"name": "Addrs"          , "default":{}, "type":"Addrs" },
+      {"name": "Emails"         , "default":{}, "type":"Emails" },
+      {"name": "Attrs"          , "default":{}, "type":"Attrs",  "doc":"Attributes Container" },
+      {"name": "Srcs"    	      , "default":{}, "type":"Srcs"  }
+   ]
+}

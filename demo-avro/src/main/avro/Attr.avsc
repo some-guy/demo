@@ -1,0 +1,28 @@
+[
+{
+    "name": "BDP",
+    "namespace": "com.indatasights.demo.avro",
+    "type": "enum",
+    "doc":"dob precision (u)unknown, (e)xact. (y) year missing (m): month missing, 06-15. (d)ay missing 15. if year missing, should be set to 0",
+    "symbols": [ "u", "e", "y", "m" , "d" ]
+ }, {
+    "namespace" : "com.indatasights.demo.avro",
+    "name" : "Attr",
+    "type" : "record",
+    "fields" : [  
+                { "name" : "id",         "default" : "",   "type" : "string"},
+                { "name" : "gender",     "default" : "u",  "type" : "Genders"},
+                { "name" : "bDP",     "default" : "u",  "type" : "BDP", "doc":"birthday precision"},
+                { "name" : "rBD",        "default" : "0",  "type" : "string","doc":"raw birthday" },
+                { "name" : "dob",        "default" : "0",  "type" : "string","doc":"parsed dob"},
+                { "name" : "attr", "default" : {}, "type" : { "type" : "map","values" : "string" }}
+    ]
+}, {
+    "namespace" : "com.indatasights.demo.avro",
+    "type" : "record",
+    "name" : "Attrs",
+    "fields" : [ 
+                 { "name" : "Attrs", "default" : [], "type" : { "type" : "array",  "items" : "Attr" } } 
+     ]
+} 
+]

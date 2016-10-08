@@ -1,0 +1,27 @@
+{ 
+  "comment"    : "Corelogic_Internal_ICP#AKZA-5953JD_Delivery_Data_20150903.zip",
+  "contactInfo": {"name":"john doe","email":"jdoe@example.com"},
+  "delim"      : "|",
+  "locations"  : {
+  },
+  "fields"     : [
+
+
+{"name":"FIPS", "type":"string", "default":"", "description":""},
+{"name":"APN", "type":"string", "default":"", "description":""},
+{"name":"Parcel Sequence #", "type":"string", "default":"", "description":""},
+{"name":"Owner 1 First Name", "type":"string", "default":"", "description":""},
+{"name":"Owner 1 Last Name", "type":"string", "default":"", "description":""},
+{"name":"Owner 2 First Name", "type":"string", "default":"", "description":""},
+{"name":"Owner 2 Last Name", "type":"string", "default":"", "description":""},
+{"name":"Property Address Street", "type":"string", "default":"", "description":""},
+{"name":"Property Address City", "type":"string", "default":"", "description":""},
+{"name":"Property Address State", "type":"string", "default":"", "description":""},
+{"name":"Property Address Zip", "type":"string", "default":"", "description":""},
+{"name":"Mailing Address Street", "type":"string", "default":"", "description":""},
+{"name":"Mailing Address City", "type":"string", "default":"", "description":""},
+{"name":"Mailing Address State", "type":"string", "default":"", "description":""},
+{"name":"Mailing Address Zip", "type":"string", "default":"", "description":""}
+
+  ]
+}

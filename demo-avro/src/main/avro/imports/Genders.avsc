@@ -1,0 +1,6 @@
+{
+   "name": "Genders",
+   "namespace": "com.indatasights.demo.avro",
+   "type": "enum",
+   "symbols": ["u", "m", "f"]
+}

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <groupId>com.indatasights.demo</groupId>
+      <artifactId>demo</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <relativePath>../</relativePath>
+   </parent>
+   <artifactId>demo-avro</artifactId>
+   <name>demo-avro</name>
+   <url>http://indatasights.com/demo/avro</url>
+   <packaging>jar</packaging>
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <main.class>com.indatasights.demo.avro.Avro</main.class>
+   </properties>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <phase>generate-sources</phase>
+                  <goals>
+                     <goal>add-source</goal>
+                  </goals>
+                  <configuration>
+                     <sources>
+                        <source>${project.build.directory}/generated-sources/avro/</source>
+                     </sources>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <phase>generate-sources</phase>
+                  <goals>
+                     <goal>schema</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <imports>
+                  <import>${basedir}/src/main/avro/imports/Genders.avsc</import>
+                  <import>${basedir}/src/main/avro/Name.avsc</import>
+                  <import>${basedir}/src/main/avro/Addr.avsc</import>
+                  <import>${basedir}/src/main/avro/Email.avsc</import>
+                  <import>${basedir}/src/main/avro/Attr.avsc</import>
+                  <import>${basedir}/src/main/avro/Src.avsc</import>
+               </imports>
+            </configuration>
+
+         </plugin>
+      </plugins>
+   </build>
+
+   <dependencies>
+
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.avro</groupId>
+         <artifactId>avro-mapred</artifactId>
+         <classifier>hadoop2</classifier>
+      </dependency>
+
+   </dependencies>
+</project>

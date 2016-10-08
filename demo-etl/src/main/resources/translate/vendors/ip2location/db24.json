@@ -1,0 +1,33 @@
+{ 
+  "comment"    : "db42 file format from ip2location.com",
+  "contactInfo": {"name":"mike shannon","email":"mike@indatasights.com"},
+  "delim"      : ",",
+  "locations"  : {},
+  "fields"     : [
+
+
+
+{"name":"IP_FROM", "type":"string", "default":"", "description":""},
+{"name":"IP_TO", "type":"string", "default":"", "description":""},
+{"name":"COUNTRY_CODE", "type":"string", "default":"", "description":""},
+{"name":"COUNTRY_NAME", "type":"string", "default":"", "description":""},
+{"name":"REGION", "type":"string", "default":"", "description":""},
+{"name":"CITY", "type":"string", "default":"", "description":""},
+{"name":"LATITUDE", "type":"string", "default":"", "description":""},
+{"name":"LONGITUDE", "type":"string", "default":"", "description":""},
+{"name":"ZIPCODE", "type":"string", "default":"", "description":""},
+{"name":"TIME_ZONE", "type":"string", "default":"", "description":""},
+{"name":"ISP_NAME", "type":"string", "default":"", "description":""},
+{"name":"DOMAIN_NAME", "type":"string", "default":"", "description":""},
+{"name":"NETSPEED", "type":"string", "default":"", "description":""},
+{"name":"IDD_CODE", "type":"string", "default":"", "description":""},
+{"name":"AREA_CODE", "type":"string", "default":"", "description":""},
+{"name":"WEATHER_STATION_CODE", "type":"string", "default":"", "description":""},
+{"name":"WEATHER_STATION_NAME", "type":"string", "default":"", "description":""},
+{"name":"MCC", "type":"string", "default":"", "description":""},
+{"name":"MNC", "type":"string", "default":"", "description":""},
+{"name":"MOBILE_BRAND", "type":"string", "default":"", "description":""},
+{"name":"ELEVATION", "type":"string", "default":"", "description":""},
+{"name":"USAGE_TYPE", "type":"string", "default":"", "description":""}
+  ]
+}

@@ -1,0 +1,26 @@
+[
+{
+  "name":"Name",
+  "namespace":"com.indatasights.demo.avro",
+  "type":"record",
+  "fields":[
+    {"name":"full",  "type":"string", "default":""},
+    {"name":"pre",   "type":"string", "default":"", "doc":"prefix"},
+    {"name":"first",   "type":"string", "default":""},
+    {"name":"middle",  "type":"string", "default":""},
+    {"name":"last",  "type":"string", "default":""},
+    {"name":"gen", "type":"string", "default":"", "doc":"generation"},
+    {"name":"suf",  "type":"string", "default":"", "doc":"suffix"},
+    {"name":"cF", "type":"string", "default":"", "doc":"canonicalFirst"},
+    {"name":"maiden", "type":"string", "default":""}
+  ]
+},
+{
+  "namespace" : "com.indatasights.demo.avro",
+  "type" : "record",
+  "name" : "Names",
+  "fields" :	[
+    { "name" : "Names", "default" : [], "type": {"type":"array", "items" : "Name"}}
+    ]
+}
+]
