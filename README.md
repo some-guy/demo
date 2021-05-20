@@ -4,13 +4,15 @@ As this is a java/maven project, make sure maven is installed (installing maven 
 
     apt-get install maven
 
+Add JAVA_HOME that points to a Sun/Oracle java 8 jdk in $HOME/.mavenrc
+
 You will also need JGeocoder, download from  
 
-    http://sourceforge.net/projects/jgeocoder/files/latest/download
+    wget -O jgeocoder-0.5-jar-with-dependencies.jar http://sourceforge.net/projects/jgeocoder/files/latest/download
 
 Then run the following command to install to your local repo
 
-    mvn install:install -file \
+    mvn install:install-file \
        -DgroupId=net.sourceforge.jgeocoder \
        -DartifactId=jgeocoder\
        -Dpackaging=jar \
