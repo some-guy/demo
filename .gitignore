@@ -8,6 +8,7 @@ build/
 test-output
 dist/
 lib/
+.vscode
 .classpath
 .settings/
 .tmpBin/
@@ -15,6 +16,7 @@ lib/
 .externalToolBuilders/
 .idea
 *.iml
+*.factorypath
 *.log
 *.tmp
 pom.xml.tag
