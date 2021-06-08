@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # unite dedpulicates nearest neighbors
 # depends heavily on neighbors being sorted correctly
 OLD_LC_ALL=$LC_ALL
@@ -31,4 +31,4 @@ echo
 echo final result:
 export LC_ALL=$OLD_LC_ALL
 
-$DIR/columns.sh < /tmp/phase2.out
+cat /tmp/phase2.out
